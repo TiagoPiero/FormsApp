@@ -1,0 +1,109 @@
+<!--* Para enlazar el formulario de ts a nuestro formulario de html, usamos las llaves cuadradas y lo asignamos a nuestra propiedad creada en el ts. Para enlazar cada campo a una propiedad, colocamos el formControlName -->
+
+
+<h2>Reactivos: Básicos</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form [formGroup]="myForm" (ngSubmit)="onSave()" autocomplete="off">
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Producto</label>
+                <div class="col-sm-9">
+
+                    <input type="text"
+                           class="form-control"
+                           formControlName="name"
+                           placeholder="Nombre del producto">
+
+                    <span *ngIf="isValidField('name')"
+                    class="form-text text-danger">
+                        <!-- Debe de ser de 3 letras -->
+                       {{ getFieldError('name') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Precio</label>
+                <div class="col-sm-9">
+                    <input type="number"
+                           class="form-control"
+                           formControlName="price"
+                           placeholder="Precio del producto">
+                    <span *ngIf="isValidField('price')"
+                    class="form-text text-danger">
+                        El precio debe de ser 0 o mayor
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de existencias -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Existencias</label>
+                <div class="col-sm-9">
+                    <input type="number"
+                           class="form-control"
+                           formControlName="inStorage"
+                           placeholder="Existencias del producto">
+
+                    <span *ngIf="isValidField('inStorage')"
+                    class="form-text text-danger">
+                         Las existencias deben de ser 0 o mayor
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit"
+                            class="btn btn-primary float-end">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col">
+
+        <span>Valid</span>
+        <pre>{{ myForm.valid| json }}</pre>    <!--* devuelve true|false si todos los campos son validos -->
+
+        <span>Pristine</span>
+        <pre>{{ myForm.pristine| json }}</pre>  <!--* devuelve true si fue modificado o manipulado el formulario -->
+
+        <span>Touched</span>
+        <pre>{{ myForm.touched| json }}</pre>    <!--* devuelve true si ya se clickeo algun campo del formulario -->
+
+        <span>Value</span>
+        <pre>{{ myForm.value| json }}</pre>
+
+        <span>Precio</span>
+        <pre>{{ myForm.controls['price'].value| json }}</pre>
+
+        <span>Precio - Errors</span>
+        <pre>{{ myForm.controls['price'].errors | json }}</pre>  <!--* Devuelve null si no hay ningu error. Si hay error, me devuelve el mismo -->
+
+        <span>Producto</span>
+        <pre>{{ myForm.controls['name'].value| json }}</pre>
+
+        <span>Producto - Errors </span>
+        <pre>{{ myForm.controls['name'].errors| json }}</pre>
+
+    </div>
+</div>
